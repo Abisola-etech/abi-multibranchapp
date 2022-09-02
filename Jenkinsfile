@@ -19,8 +19,8 @@ pipeline{
 				}
 			}
 			stage('webhook'){
-				step{
-					 echo "just trying the 3rd line"
+				steps{
+				    echo "just trying the 3rd line"
 				}
 				
 			}
@@ -33,12 +33,12 @@ pipeline{
 	}
 	stage('usercheck'){
 		steps{
-			sh 'cat /etc/passwd | grep Jenkins'
+			sh 'cat /etc/passwd'
 		}
 	}
 	stage('2-parallel'){
 		parallel{
-			stage('to test-multi-parallel'){
+			stage('testing-multi-parallel'){
               steps{
 				sh 'lscpu'
 			    }
