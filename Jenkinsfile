@@ -36,5 +36,16 @@ pipeline{
 			sh 'cat /etc/passwd | grep Jenkins'
 		}
 	}
+	stage('2-parallel'){
+		parallel{
+			stage('to test-multi-parallel'){
+              steps{
+				sh 'lscpu'
+			    }
+	        }
+		}
 	}
+ }
+
 }
+ 
