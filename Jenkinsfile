@@ -20,7 +20,7 @@ pipeline{
 			}
 			stage('webhook'){
 				steps{
-					 echo "just trying the 3rd line"
+				    echo "just trying the 3rd line"
 				}
 				
 			}
@@ -38,7 +38,7 @@ pipeline{
 	}
 	stage('2-parallel'){
 		parallel{
-			stage('to test-multi-parallel'){
+			stage('testing-multi-parallel'){
               steps{
 				sh 'lscpu'
 			    }
