@@ -1,51 +1,28 @@
-pipeline{
-	agent any
-	stages{
-		stage('git clone'){
-			steps{
-				checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-id', url: 'https://github.com/Abisola-etech/abi-multibranchapp.git']]])
-			}
-		}
-	stage('parallel-level'){
-		parallel{
-			stage('sub-job1 abisola'){
-				steps{
-					echo "sub-job1 task"
-				}
-			}
-			stage('sub-job2'){
-				steps{
-					echo "sub-job2 task"
-				}
-			}
-			stage('webhook'){
-				steps{
-				    echo "just trying the 3rd line"
-				}
-				
-			}
-		}
-	}
-	stage('version-check'){
-		steps{
-			echo "end of parallel job"
-		}
-	}
-	stage('usercheck'){
-		steps{
-			sh 'cat /etc/passwd'
-		}
-	}
-	stage('2-parallel'){
-		parallel{
-			stage('testing-multi-parallel'){
-              steps{
-				sh 'lscpu'
-			    }
-	        }
-		}
-	}
- }
-
-}
+pipeline {
+    agent any
+    stages {
+    stage ('clone'){
+    steps {
+    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-id', url: 'https://github.com/Abisola-etech/abi-multibranchapp.git']]])
+       }
+    }
+        stage('Main Branch Deploy Code') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh 'echo "Building Artifact from Main branch"'
  
+                sh 'echo "Deploying Code from Main branch"'
+            }
+        }
+        stage('Develop Branch Deploy Code') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh 'echo "Building Artifact from Develop branch"'
+                sh 'echo "Deploying Code from Develop branch"'
+           }
+        }
+    }
