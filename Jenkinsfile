@@ -33,7 +33,7 @@ pipeline{
 	}
 	stage('usercheck'){
 		steps{
-			sh 'cat /etc/passwd | grep Jenkins'
+			sh 'cat /etc/passwd'
 		}
 	}
 	stage('2-parallel'){
